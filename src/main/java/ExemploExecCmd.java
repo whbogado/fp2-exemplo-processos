@@ -24,10 +24,9 @@ public class ExemploExecCmd {
         Runtime rt = Runtime.getRuntime();
         Process proc = rt.exec(cmd);
         InputStream is = proc.getInputStream();
-        do {
-            nRead = is.read(saida);
+        while ((nRead = is.read(saida)) != -1) {
             System.out.print(new String(saida, 0, nRead));
-        } while (is.available() > 0);
+        }
         System.out.println("Processo terminado com status " + proc.exitValue());
     }
     
