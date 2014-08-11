@@ -15,7 +15,7 @@ public class ExemploExecCmd {
         String cmd;
         String os = System.getProperty("os.name");
         if (os.toLowerCase().contains("windows"))
-            cmd = "cmd /c c: & cd \\windows\\temp & dir";
+            cmd = "cmd /c c: & cd \\windows & dir";
         else
             cmd = "sh -c \"cd /tmp;ls -al\"";
         
@@ -24,12 +24,10 @@ public class ExemploExecCmd {
         Runtime rt = Runtime.getRuntime();
         Process proc = rt.exec(cmd);
         InputStream is = proc.getInputStream();
-        while (proc.isAlive()) {
-            do {
-                nRead = is.read(saida);
-                System.out.print(new String(saida, 0, nRead));
-            } while (is.available() > 0);
-        }
+        do {
+            nRead = is.read(saida);
+            System.out.print(new String(saida, 0, nRead));
+        } while (is.available() > 0);
         System.out.println("Processo terminado com status " + proc.exitValue());
     }
     
